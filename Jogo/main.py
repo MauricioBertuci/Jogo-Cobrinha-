@@ -3,10 +3,6 @@
 #botão de restart 
 #deixar a velocidade maior quando pegar 3, 5, 10 
 
-
-
-
-
 import pygame
 import random #permite pegar numero aleatoria dentro de range ou lista #gera algo aleatoria na tela
 
@@ -14,8 +10,18 @@ import random #permite pegar numero aleatoria dentro de range ou lista #gera alg
 pygame.init()
 pygame.mixer.init()
 
+#carregar musica para o jogo
+pygame.mixer.music.load("C:\HitPaw Video Converter\Downloaded") ##COLOCAR O AQUIVO DA MUSICA 
 
+#Ajusta volume da musica
+pygame.mixer.music.set_volume(0.7)
 
+#Colocar para tocar
+pygame.mixer.music.play(-1) #"0" toca uma vez e "-1" toca infinito 
+
+#mantem programa rodando enquanto a musica toca 
+while pygame.mixer.music.play.get_busy():
+    pygame.time.Clock().tick(10) #atualiza a cada 10ms para evitar congelamento 
 
 pygame.display.set_caption("Jogo da cobrinha")
 LARGURA, ALTURA = 1200, 800
@@ -51,6 +57,7 @@ tamanho_cobra = 1
 segmentos_cobra= [] 
 
 fim_jogo = False
+fim_jogo = pygame.mixer.music.stop() ###Analisarr
 
 while not fim_jogo:
     #Criando a tela do jogo 
@@ -86,11 +93,13 @@ while not fim_jogo:
     #verificar colisão com o prorpio corpo
     for lista in segmentos_cobra[:-1]:
         if lista == [x,y]:
-            fim_jogo = True
+            fim_jogo = True and pygame.mixer.music.stop()
+            
     
     #verificar  colisão na parede
     if x < 0 or x >= LARGURA or y < 0 or y >= ALTURA:
-        fim_jogo = True
+        fim_jogo = True and pygame.mixer.music.stop()
+        
    
     #Desenhar a cobrinha
     for lista in segmentos_cobra:
