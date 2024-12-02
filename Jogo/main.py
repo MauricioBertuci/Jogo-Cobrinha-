@@ -11,7 +11,7 @@ pygame.init()
 pygame.mixer.init()
 
 #carregar musica para o jogo
-pygame.mixer.music.load("C:\HitPaw Video Converter\Downloaded") ##COLOCAR O AQUIVO DA MUSICA 
+pygame.mixer.music.load(r"C:\HitPaw Video Converter\Downloaded.mp3") ##COLOCAR O AQUIVO DA MUSICA 
 
 #Ajusta volume da musica
 pygame.mixer.music.set_volume(0.7)
