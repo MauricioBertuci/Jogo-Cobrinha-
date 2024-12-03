@@ -10,19 +10,6 @@ import random #permite pegar numero aleatoria dentro de range ou lista #gera alg
 pygame.init()
 pygame.mixer.init()
 
-#carregar musica para o jogo
-pygame.mixer.music.load(r"C:\HitPaw Video Converter\Downloaded.mp3") ##COLOCAR O AQUIVO DA MUSICA 
-
-#Ajusta volume da musica
-pygame.mixer.music.set_volume(0.7)
-
-#Colocar para tocar
-pygame.mixer.music.play(-1) #"0" toca uma vez e "-1" toca infinito 
-
-#mantem programa rodando enquanto a musica toca 
-while pygame.mixer.music.play.get_busy():
-    pygame.time.Clock().tick(10) #atualiza a cada 10ms para evitar congelamento 
-
 pygame.display.set_caption("Jogo da cobrinha")
 LARGURA, ALTURA = 1200, 800
 tela =pygame.display.set_mode((LARGURA, ALTURA))
@@ -38,7 +25,7 @@ verde= (0,255,0)
 tamanho_quadrado= 20 #sempre numero par e inteiro
 
 #FPS do jogo 
-velocidade_jogo= 5
+velocidade_jogo= 15
 
 #Gerar a comida inicial
 comida_x= round(random.randrange(0,LARGURA - tamanho_quadrado) / float(tamanho_quadrado)) * float(tamanho_quadrado)
@@ -93,13 +80,11 @@ while not fim_jogo:
     #verificar colisão com o prorpio corpo
     for lista in segmentos_cobra[:-1]:
         if lista == [x,y]:
-            fim_jogo = True and pygame.mixer.music.stop()
-            
+            fim_jogo = True      
     
     #verificar  colisão na parede
     if x < 0 or x >= LARGURA or y < 0 or y >= ALTURA:
-        fim_jogo = True and pygame.mixer.music.stop()
-        
+        fim_jogo = True
    
     #Desenhar a cobrinha
     for lista in segmentos_cobra:
@@ -112,7 +97,14 @@ while not fim_jogo:
     fonte = pygame.font.SysFont("Arial Black", 32)
     texto = fonte.render(f"Pontos: {tamanho_cobra-1}", True, branca)
     tela.blit(texto, [1,1])
- 
+    
+     #Desenho tela de morte
+    if fim_jogo == True:
+        fonte = pygame.font.SysFont("Arial Black", 30)
+        texto = fonte.render("Você Morreu !!",True, branca)
+        tela.blit(texto, [600,300])
+        
+
     pygame.display.update()
 
     #verificar se a cobtrinha comeu a comida 
